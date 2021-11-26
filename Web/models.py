@@ -7,4 +7,4 @@ class User(AbstractUser):
     nickname = models.CharField(max_length=30, default='default')
 
     def __str__(self):
-        return self.name
+        return self.nickname

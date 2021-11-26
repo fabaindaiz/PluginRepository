@@ -3,6 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    #path('', views.index, name='web'),
+    path('file', views.download_file, name='file'),
     
 ]

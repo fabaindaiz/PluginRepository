@@ -5,4 +5,4 @@ from PluginBackend.models import *
 admin.site.register(Server)
 admin.site.register(Plugin)
 admin.site.register(PluginVersion)
-admin.site.register(PluginServer)
+admin.site.register(ServerPlugin)

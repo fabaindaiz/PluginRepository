@@ -1,0 +1,15 @@
+<html lang="es">
+<head>
+    <title>index</title>
+    {% include "web/base.html" %}
+</head>
+<body>
+    <div class="container p-5 my-5 border">
+        <h2>Login</h2><br>
+        <form action="" method="post" class="form">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" class="btn btn-secondary btn-sm" value="Submit" name="LoginForm">
+        </form>
+    </div>
+</body>

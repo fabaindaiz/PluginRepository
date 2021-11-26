@@ -1,0 +1,60 @@
+<html lang="es">
+<head>
+    <title>index</title>
+    {% include "web/base.html" %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="server">Server</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="plugin">Plugin</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="login">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container p-5 my-5 border">
+        {% if server %}
+        <h2>Server : {{ server }}</h2><br>
+        {% else %}
+        <h2>Server</h2><br>
+        {% endif %}
+        <form action="" method="post" class="form">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" class="btn btn-secondary btn-sm" value="Submit" name="ServerForm">
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Server</th>
+                    <th>Plugin</th>
+                    <th>Version</th>
+                    <th>Last Update</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for plugin in data %}
+                <tr>
+                    <td>{{ plugin.server }}</td>
+                    <td>{{ plugin.plugin }}</td>
+                    <td>{{ plugin.version }}</td>
+                    <td>{{ plugin.update_date }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+</body>
