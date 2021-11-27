@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from PluginBackend.models import *
+from Web.models import ApiKey
 
 
 def download_file(request):
@@ -14,10 +15,9 @@ def download_file(request):
     elif request.method == "GET":
         id = request.GET.get('id')
         if id:
-            plugin = Plugin.objects.get(id=request.GET.get('id'))
-            version = PluginVersion.objects.filter(plugin=plugin).order_by('-update_date')[0]
-            response = HttpResponse(version.file, content_type='application/force-download')
-            response['Content-Disposition'] = 'inline; filename=' + version.file_name
+            plugin = PluginVersion.objects.get(id=request.GET.get('id'))
+            response = HttpResponse(plugin.file, content_type='application/force-download')
+            response['Content-Disposition'] = 'inline; filename=' + plugin.file_name
             return response
     return redirect('/')
 

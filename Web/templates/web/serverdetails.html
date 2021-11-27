@@ -1,6 +1,6 @@
 <html lang="es">
 <head>
-    <title>Plugins</title>
+    <title>Server: {{ server }}</title>
     {% include "web/base_header.html" %}
 </head>
 <body class="sb-nav-fixed">
@@ -10,7 +10,7 @@
             <div class="container">
 
                 <div class="card mt-4 mb-4">
-                    <div class="card-header"><h1 class="text-center font-weight-light my-2"> Plugins </h1></div>
+                    <div class="card-header"><h1 class="text-center font-weight-light my-2">Server: {{ server }}</h1></div>
                     <div class="card-body">
                         <form action="" method="post" class="form" enctype="multipart/form-data">
                             {% csrf_token %}
@@ -43,29 +43,21 @@
                         <table class="table" id="datatablesSimple">
                             <thead>
                                 <tr>
+                                    <th>Server</th>
                                     <th>Plugin</th>
-                                    <th>Code</th>
+                                    <th>Version</th>
                                     <th>Last Update</th>
-                                    <th>Details</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>Plugin</th>
-                                    <th>Code</th>
-                                    <th>Last Update</th>
-                                    <th>Details</th>
-                                </tr>
-                            </tfoot>
                             <tbody>
-                                {% for plugin in data %}
+                            {% for server in data %}
                                 <tr>
-                                    <td>{{ plugin.name }}</td>
-                                    <td>{{ plugin.code }}</td>
-                                    <td>{{ plugin.update_date }}</td>
-                                    <td><a href="plugin?id={{ plugin.id }}">Click</a></td>
+                                    <td>{{ server.server }}</td>
+                                    <td>{{ server.plugin }}</td>
+                                    <td>{{ server.version }}</td>
+                                    <td>{{ server.update_date }}</td>
                                 </tr>
-                                {% endfor %}
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>

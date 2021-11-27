@@ -1,4 +1,4 @@
-[{"model":"PluginBackend.Server", "pk":1, "fields": {"name":"waterfall", "port": "25565", "server_id": "5f7116b0-d9d1-46b0-ba8c-6236a1132b62"}},
+[{"model":"PluginBackend.Server", "pk":1, "fields": {"name":"Waterfall", "port": "25565", "server_id": "5f7116b0-d9d1-46b0-ba8c-6236a1132b62"}},
 {"model":"PluginBackend.Server", "pk":2, "fields": {"name":"Lobby", "port": "25566", "server_id": "04e553b8-4d75-4b4f-a763-8220d4d4c357"}},
 {"model":"PluginBackend.Server", "pk":3, "fields": {"name":"Survold", "port": "25567", "server_id": "ffcbd5bd-8796-477c-9ac4-95a80f25a710"}},
 {"model":"PluginBackend.Server", "pk":4, "fields": {"name":"Survival", "port": "25568", "server_id": "7097d2d5-4dbe-471b-815c-8203444d1752"}}]

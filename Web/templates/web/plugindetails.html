@@ -1,6 +1,6 @@
 <html lang="es">
 <head>
-    <title>Plugins</title>
+    <title>Plugin: {{ plugin }}</title>
     {% include "web/base_header.html" %}
 </head>
 <body class="sb-nav-fixed">
@@ -10,7 +10,7 @@
             <div class="container">
 
                 <div class="card mt-4 mb-4">
-                    <div class="card-header"><h1 class="text-center font-weight-light my-2"> Plugins </h1></div>
+                    <div class="card-header"><h1 class="text-center font-weight-light my-2">Plugin: {{ plugin }}</h1></div>
                     <div class="card-body">
                         <form action="" method="post" class="form" enctype="multipart/form-data">
                             {% csrf_token %}
@@ -44,28 +44,28 @@
                             <thead>
                                 <tr>
                                     <th>Plugin</th>
-                                    <th>Code</th>
+                                    <th>Version</th>
                                     <th>Last Update</th>
-                                    <th>Details</th>
+                                    <th>Download</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>Plugin</th>
-                                    <th>Code</th>
+                                    <th>Version</th>
                                     <th>Last Update</th>
-                                    <th>Details</th>
+                                    <th>Download</th>
                                 </tr>
                             </tfoot>
                             <tbody>
-                                {% for plugin in data %}
+                            {% for plugin in data %}
                                 <tr>
-                                    <td>{{ plugin.name }}</td>
-                                    <td>{{ plugin.code }}</td>
+                                    <td>{{ plugin.plugin }}</td>
+                                    <td>{{ plugin.version }}</td>
                                     <td>{{ plugin.update_date }}</td>
-                                    <td><a href="plugin?id={{ plugin.id }}">Click</a></td>
+                                    <td><a href="/backend/file?id={{ plugin.id }}">Click</a></td>
                                 </tr>
-                                {% endfor %}
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
