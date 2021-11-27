@@ -7,17 +7,17 @@ from Web.models import *
 from Web.forms import *
 
 
-def index(request):
+def Index(request):
     if not request.user.is_authenticated:
         return redirect('login')
+
     return render(request, "web/index.html", {})
 
-def ServerPage(request):
+def ServerPage(request, id = None):
     if not request.user.is_authenticated:
         return redirect('login')
 
     elif request.method == "GET":
-        id = request.GET.get('id')
         if  not id:
             data = Server.objects.all()
             form = ServerForm()
@@ -27,7 +27,7 @@ def ServerPage(request):
             data = ServerPlugin.objects.filter(server=server).order_by('-update_date')
             form = ServerDetailsForm()
             form.fields['server'].initial = server
-            return render(request, "web/serverdetails.html", {"server": server, "data": data, "form": form})
+            return render(request, "web/serverdetails.html", {"user": request.user, "server": server, "data": data, "form": form})
     
     elif request.method == "POST":
         if "ServerForm" in request.POST:
@@ -47,12 +47,11 @@ def ServerPage(request):
                 instance.save()
     return redirect('server')
 
-def PluginPage(request):
+def PluginPage(request, id = None):
     if not request.user.is_authenticated:
         return redirect('login')
 
     elif request.method == "GET":
-        id = request.GET.get('id')
         if not id:
             data = Plugin.objects.all()
             form = PluginForm()
@@ -62,7 +61,7 @@ def PluginPage(request):
             data = PluginVersion.objects.filter(plugin=plugin).order_by('-update_date')
             form = PluginDetailsForm()
             form.fields['plugin'].initial = plugin
-            return render(request, "web/plugindetails.html", {"plugin": plugin, "data": data, "form": form})
+            return render(request, "web/plugindetails.html", {"user": request.user, "plugin": plugin, "data": data, "form": form})
     
     elif request.method == "POST":
         if "PluginForm" in request.POST:
@@ -91,7 +90,7 @@ def LoginPage(request):
 
     elif request.method == 'GET':
         login_form = LoginForm()
-        return render(request,"web/login.html", {"form": login_form})
+        return render(request,"web/login.html", {"user": request.user, "form": login_form})
 
     elif request.method == 'POST':
         if "LoginForm" in request.POST:
@@ -103,6 +102,16 @@ def LoginPage(request):
                 if user is not None:
                     login(request, user)
                     return redirect('/')
-                else:
-                    messages.error(request, "Usuario o contraseña incorrectos")
         return redirect('login')
+
+def SettingsPage(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    return render(request, "web/settings.html", {})
+
+def LogsPage(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    return render(request, "web/logs.html", {})

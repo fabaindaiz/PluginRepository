@@ -8,14 +8,13 @@ from PluginBackend.models import *
 from Web.models import ApiKey
 
 
-def download_file(request):
+def download_file(request, id = None):
     if not request.user.is_authenticated:
         return redirect('login')
 
     elif request.method == "GET":
-        id = request.GET.get('id')
         if id:
-            plugin = PluginVersion.objects.get(id=request.GET.get('id'))
+            plugin = PluginVersion.objects.get(id=id)
             response = HttpResponse(plugin.file, content_type='application/force-download')
             response['Content-Disposition'] = 'inline; filename=' + plugin.file_name
             return response

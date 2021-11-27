@@ -3,11 +3,16 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.Index, name='index'),
+    path('login', views.LoginPage, name='login'),
 
     path('server', views.ServerPage, name='server'),
-    path('plugin', views.PluginPage, name='plugin'),
+    path('server/<int:id>', views.ServerPage, name='server'),
 
-    path("login", views.LoginPage, name="login"),
+    path('plugin', views.PluginPage, name='plugin'),
+    path('plugin/<int:id>', views.PluginPage, name='plugin'),
+
+    path('settings', views.SettingsPage, name='plugin'),
+    path('logs', views.LogsPage, name='plugin'),
     
 ]

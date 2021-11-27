@@ -3,13 +3,34 @@
     <title>index</title>
     {% include "web/base_header.html" %}
 </head>
-<body>
-    <div class="container p-5 my-5 border">
-        <h2>Login</h2><br>
-        <form action="" method="post" class="form">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" class="btn btn-secondary btn-sm" value="Submit" name="LoginForm">
-        </form>
+<body class="bg-primary">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                {% load static %}
+                <div class="card-header"><img src="{% static 'web/img/logo.png' %}" class="img-fluid my-4"></div>
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                <div class="card-body">
+                <form action="" method="post" class="form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+                    {% for field in form.visible_fields %}
+                        <div class="form-check mb-3">
+                            {{ field.errors }}
+                            {{ field.label_tag }} {{ field }}
+                        </div>
+                    {% endfor %}
+                    <div class="d-flex align-items-center justify-content-between mt-4">
+                        <label></label>
+                        <input type="submit"class="btn btn-primary btn-lg" value="Login" name="LoginForm">
+                    </div>  
+                </form>
+            </div>
+        </div>
     </div>
+    {% include "web/base_footer.html" %}
 </body>
+</html>
