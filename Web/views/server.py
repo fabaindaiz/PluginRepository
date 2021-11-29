@@ -1,14 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import View
-from Web.util import *
 
+from PluginRepository.util import *
 from PluginBackend.models import *
 from Web.models import *
 from Web.forms import *
 
 
 class ServerView(View):
+    
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
@@ -34,6 +35,7 @@ class ServerView(View):
                 server_id = form.cleaned_data['server_id']
                 instance = Server(name=name, port=port, server_id=server_id)
                 instance.save()
+                Logs(user=request.user, action="Server Created", description=name).save()
         elif "ServerDetailsForm" in request.POST:
             form = ServerDetailsForm(request.POST)
             if form.is_valid():
@@ -41,4 +43,5 @@ class ServerView(View):
                 plugin = get_object_or_404(Plugin, name=form.cleaned_data['plugin'])
                 instance = ServerPlugin(server=server, plugin=plugin)
                 instance.save()
+                Logs(user=request.user, action="Server Modified", description=server.name+" - "+plugin.name).save()
         return redirect(request.path_info)

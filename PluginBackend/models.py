@@ -1,11 +1,10 @@
 from django.db import models
 from django.utils import timezone
-from Web.models import User
 
 
 class Server(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     port = models.CharField(max_length=10, default="25565")
     server_id = models.CharField(max_length=100, default="")
     update_date = models.DateTimeField(default=timezone.now)
@@ -15,7 +14,7 @@ class Server(models.Model):
 
 class Plugin(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     code = models.CharField(max_length=10, default='-1')
     folder_name = models.CharField(max_length=100)
     update_date = models.DateTimeField(default=timezone.now)

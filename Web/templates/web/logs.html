@@ -8,6 +8,42 @@
         {% include "web/base_nav.html" %}
         <div id="layoutSidenav_content">
             <div class="container">
+                <div class="card mt-4 mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Logs
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="datatablesSimple">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                    <th>Description</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {% for log in data %}
+                                <tr>
+                                    <td>{{ log.user }}</td>
+                                    <td>{{ log.date }}</td>
+                                    <td>{{ log.action }}</td>
+                                    <td>{{ log.description }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
