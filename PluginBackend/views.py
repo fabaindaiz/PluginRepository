@@ -1,23 +1,19 @@
-from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib import messages
 
 from PluginBackend.models import *
-from Web.models import ApiKey
 
 
 def download_file(request, id = None):
     if not request.user.is_authenticated:
-        return redirect('login')
+        return redirect('/login')
 
-    elif request.method == "GET":
-        if id:
-            plugin = PluginVersion.objects.get(id=id)
-            response = HttpResponse(plugin.file, content_type='application/force-download')
-            response['Content-Disposition'] = 'inline; filename=' + plugin.file_name
-            return response
+    elif request.method == "GET" and id:
+        plugin = get_object_or_404(PluginVersion, id=id)
+        response = HttpResponse(plugin.file, content_type='application/force-download')
+        response['Content-Disposition'] = 'inline; filename=' + plugin.file_name
+        return response
     return redirect('/')
 
 def delete(request):
