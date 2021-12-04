@@ -20,7 +20,6 @@ class DownloadView(View):
             return HttpResponse("null")
 
 
-
         server_id = request.POST['id']
         plugin_id = request.POST['plugin_id']
         

@@ -5,15 +5,20 @@ services:
     container_name: plugin_app
     build: .
     command: bash -c "
+      pip install -r requirements.txt &&
       python manage.py makemigrations PluginBackend Web &&
       python manage.py migrate &&
       python manage.py loaddata PluginBackend/json/data.json &&
-      python manage.py runserver 127.0.0.1:8000"
+      gunicorn PluginRepository.wsgi:application --bind 0.0.0.0:8000"
+#      python manage.py runserver 127.0.0.1:8000"
     restart: unless-stopped
     ports:
-      - 8000:8000
-#   environment:
-#     - SECRET_KEY=secret
+      - 7090:8000
+    environment:
+      - DEBUG=0
+#      - SECRET_KEY=secret
+#      - ALLOWED_HOSTS=localhost
+
     volumes:
       - /srv/plugin/data:/data
 
