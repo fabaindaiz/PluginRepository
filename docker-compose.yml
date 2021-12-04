@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: plugin_app
+    build: .
+    command: bash -c "
+      python manage.py makemigrations PluginBackend Web &&
+      python manage.py migrate &&
+      python manage.py loaddata PluginBackend/json/data.json &&
+      python manage.py runserver 127.0.0.1:8000"
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+#   environment:
+#     - SECRET_KEY=secret
+    volumes:
+      - /srv/plugin/data:/data
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
