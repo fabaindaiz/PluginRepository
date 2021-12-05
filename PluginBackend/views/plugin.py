@@ -1,4 +1,6 @@
 from django.shortcuts import redirect, get_object_or_404, get_list_or_404
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.utils.crypto import get_random_string
 from django.http import HttpResponse, JsonResponse
 from django.views import View
@@ -9,6 +11,10 @@ from Web.models import *
 
 
 class PluginView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
     def get(self, request, dict_key):
         plugin = get_object_or_404(PluginDictionary, key=dict_key).plugin
